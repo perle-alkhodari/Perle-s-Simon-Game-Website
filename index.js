@@ -22,7 +22,6 @@ buttons.click(function() {
     if (index == pattern.length) {
         userWin();
     }
-
 })
 
 var title = $(".title");
@@ -33,6 +32,8 @@ var yellowBtn = $("button.yellow");
 var orangeBtn = $("button.orange");
 var purpleBtn = $("button.purple");
 
+var endGameText = $(".end-game-text");
+
 document.addEventListener("keypress", function(event) {
     restartGame(event.key);
 })
@@ -42,6 +43,7 @@ async function restartGame(key) {
         // Game Start
         playSound("new game");
         title.text("New Game!");
+        endGameText.removeClass("hidden");
         await sleep(2000);
         index = 0;
         pattern = [];
@@ -51,6 +53,10 @@ async function restartGame(key) {
         nextSequence();
         // Enable Buttons
         buttons.removeAttr("disabled");
+    }
+    else if (key == "a") {
+        endGameText.addClass("hidden");
+        location.reload();
     }
 }
 
@@ -141,7 +147,6 @@ async function userLose() {
     title.text("You Lost! 🙀 Better luck next time...")
     playSound("lose");
     await sleep(2500);
-    index = 0;
     title.text("Press S To Play Again");
 }
 

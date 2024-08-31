@@ -51,3 +51,12 @@ button {
 .not-user-turn {
     border-color: #6482AD;
 }
+
+.hidden {
+    visibility: hidden;
+}
+
+.end-game-text {
+    color:#F9E400;
+    font-family: "Press Start 2P", system-ui;
+}
