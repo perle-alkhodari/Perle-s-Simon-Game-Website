@@ -29,7 +29,7 @@ body {
 button {
     border-radius: 20px;
     border-width: 20px;
-    border-color: #6482AD;
+    border-color: white;
 }
 
 .orange {
@@ -46,4 +46,8 @@ button {
 
 .red {
     background-color: #F5004F;
+}
+
+.not-user-turn {
+    border-color: #6482AD;
 }

@@ -78,12 +78,15 @@ function sleep(ms) {
 
 async function traversePattern() {
     disableButtons();
+    buttons.addClass("not-user-turn");
     for (var i = 0; i < pattern.length; i++) {
         await sleep(700);
         $("." + pattern[i]).fadeOut(100).fadeIn(100)
         playSound(pattern[i]);
     }
+    await sleep(700);
     enableButtons();
+    buttons.removeClass("not-user-turn");
 }
 
 function playSound(type) {
