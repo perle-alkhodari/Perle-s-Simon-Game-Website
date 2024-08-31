@@ -21,6 +21,7 @@ buttons.click(function() {
         index++
     }
     if (index == pattern.length) {
+        playSound("win");
         updateLevel();
         nextSequence();
         index = 0;
@@ -86,14 +87,14 @@ async function traversePattern() {
     }
 }
 
-
-function playSound(color) {
-    switch(color) {
+function playSound(type) {
+    var fileLoc = "sounds/";
+    switch(type) {
         case "purple":
-
+            fileLoc += "purple.mp3";
             break;
         case "yellow":
-
+            fileLoc += "yellow.mp3";
             break;
         case "orange":
 
@@ -101,7 +102,13 @@ function playSound(color) {
         case "red":
 
             break;
+        case "win":
+            fileLoc += "win-sound.mp3";
+            break;
     }
+    var audio = new Audio(fileLoc);
+    audio.volume = 0.3;
+    audio.play();
 }
 
 function updateLevel() {
