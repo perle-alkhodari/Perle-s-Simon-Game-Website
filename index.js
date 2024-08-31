@@ -13,19 +13,14 @@ buttons.click(function() {
     var colorChoice = $(this).attr("id");
     userPattern.push(colorChoice);
     if (userPattern[index] != pattern[index]) {
-        alert("you lose");
-        index = 0;
-        title.text("Press Space To Play Again");
+        userLose();
     }
     else {
+        playSound(colorChoice);
         index++
     }
     if (index == pattern.length) {
-        playSound("win");
-        updateLevel();
-        nextSequence();
-        index = 0;
-        userPattern = [];
+        userWin();
     }
 
 })
@@ -42,16 +37,18 @@ document.addEventListener("keypress", function(event) {
     restartGame(event.key);
 })
 
-function restartGame(key) {
-    if (key == " ") {
+async function restartGame(key) {
+    if (key == "s") {
         // Game Start
+        playSound("new game");
+        title.text("New Game!");
+        await sleep(2000);
         index = 0;
         pattern = [];
         userPattern = [];
         level = 1;
         title.text("Level " + level);
         nextSequence();
-        console.log(pattern);
         // Enable Buttons
         buttons.removeAttr("disabled");
     }
@@ -89,6 +86,7 @@ async function traversePattern() {
 
 function playSound(type) {
     var fileLoc = "sounds/";
+    // get file location
     switch(type) {
         case "purple":
             fileLoc += "purple.mp3";
@@ -105,7 +103,14 @@ function playSound(type) {
         case "win":
             fileLoc += "win-sound.mp3";
             break;
+        case "lose":
+            fileLoc += "lose-sound.mp3";
+            break;
+        case "new game":
+            fileLoc += "new-game-sound.mp3";
+            break;
     }
+    // play audio
     var audio = new Audio(fileLoc);
     audio.volume = 0.3;
     audio.play();
@@ -116,4 +121,20 @@ function updateLevel() {
     title.fadeOut();
     title.text(`Level ${level}`);
     title.fadeIn();
+}
+
+function userWin() {
+    playSound("win");
+    updateLevel();
+    nextSequence();
+    index = 0;
+    userPattern = [];
+}
+
+async function userLose() {
+    title.text("You Lost! 🙀 Better luck next time...")
+    playSound("lose");
+    await sleep(2500);
+    index = 0;
+    title.text("Press S To Play Again");
 }
