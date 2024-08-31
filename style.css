@@ -1,0 +1,49 @@
+body {
+    background-color: #180161;
+}
+
+.main-container {
+    display: flex;
+    gap:50px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: #F9E400;
+    font-size: 2rem;
+    margin: 5rem;
+    font-family: "Press Start 2P", system-ui;
+    text-align: center;
+}
+
+.buttons {
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(2, 1fr);
+    width:500px;
+    height:500px;
+    opacity: 0;
+}
+
+button {
+    border-radius: 20px;
+    border-width: 20px;
+    border-color: #6482AD;
+}
+
+.orange {
+    background-color: #E85C0D;
+}
+
+.purple {
+    background-color: #7C00FE;
+}
+
+.yellow {
+    background-color: #F9E400;
+}
+
+.red {
+    background-color: #F5004F;
+}
