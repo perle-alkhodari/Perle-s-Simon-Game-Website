@@ -97,33 +97,37 @@ async function traversePattern() {
 
 function playSound(type) {
     var fileLoc = "sounds/";
+    var volume=1;
     // get file location
     switch(type) {
         case "purple":
-            fileLoc += "purple.mp3";
+            fileLoc += "Boop.mp3";
             break;
         case "yellow":
-            fileLoc += "yellow.mp3";
+            fileLoc += "Beep.mp3";
             break;
         case "orange":
-
+            fileLoc += "Bap.mp3";
             break;
         case "red":
-
+            fileLoc += "Skibidi.mp3";
             break;
         case "win":
             fileLoc += "win-sound.mp3";
+            volume = 0.3;
             break;
         case "lose":
             fileLoc += "lose-sound.mp3";
+            volume = 0.3;
             break;
         case "new game":
             fileLoc += "new-game-sound.mp3";
+            volume = 0.3;
             break;
     }
     // play audio
     var audio = new Audio(fileLoc);
-    audio.volume = 0.3;
+    audio.volume = volume;
     audio.play();
 }
 
