@@ -2,6 +2,8 @@ var pattern = [];
 var userPattern = [];
 var index = 0;
 var level = 1;
+var praiseWords = ["Good Job!", "Amazing!", "Insane!!", "Crazy!", "WWWWWWW", "Impressive!!", "U make it look EZ", "On a roll!!", "Epic moves!"];
+var praiseEmojis = ["😻", '😼', "😈", "😍", "⭐️", "🍄", "🙀", "🤯", "😵", "🫠", "🙌", "👏", "🤙", "🙊"];
 
 var buttonDiv = $(".buttons");
 buttonDiv.animate({opacity:1});
@@ -90,7 +92,8 @@ async function traversePattern() {
         $("." + pattern[i]).fadeOut(100).fadeIn(100)
         playSound(pattern[i]);
     }
-    await sleep(700);
+    await sleep(1000);
+    playSound("sequence end");
     enableButtons();
     buttons.removeClass("not-user-turn");
 }
@@ -124,6 +127,14 @@ function playSound(type) {
             fileLoc += "new-game-sound.mp3";
             volume = 0.3;
             break;
+        case "special win":
+            fileLoc += "special-win.mp3";
+            volume = 0.3;
+            break;
+        case "sequence end":
+            fileLoc += "sequence-end.mp3";
+            volume = 0.3;
+            break;
     }
     // play audio
     var audio = new Audio(fileLoc);
@@ -138,9 +149,14 @@ function updateLevel() {
     title.fadeIn();
 }
 
-function userWin() {
-    playSound("win");
-    updateLevel();
+async function userWin() {
+    if ((level + 1) % 3 == 0) {
+        specialWin();
+    }
+    else {
+        normalWin();
+    }
+    await sleep(1000);
     nextSequence();
     index = 0;
     userPattern = [];
@@ -160,4 +176,25 @@ function disableButtons() {
 
 function enableButtons() {
     buttons.removeAttr("disabled");
+}
+
+async function specialWin() {
+    playSound("special win");
+    level++;
+    randomEmoji = randomChoice(praiseEmojis);
+    randomPraise = randomChoice(praiseWords);
+    var text = `${randomEmoji} ${randomPraise} ${randomEmoji} (lvl. ${level})`;
+    title.text(text);
+    title.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+}
+
+function normalWin() {
+    playSound("win");
+    updateLevel();
+}
+
+function randomChoice(arr) {
+    var len = arr.length;
+    var random = Math.floor(Math.random() * len);
+    return arr[random];
 }
