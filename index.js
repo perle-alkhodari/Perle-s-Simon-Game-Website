@@ -86,6 +86,7 @@ async function traversePattern() {
     }
 }
 
+
 function playSound(color) {
     switch(color) {
         case "purple":
