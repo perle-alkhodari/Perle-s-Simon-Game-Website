@@ -77,11 +77,13 @@ function sleep(ms) {
 }
 
 async function traversePattern() {
+    disableButtons();
     for (var i = 0; i < pattern.length; i++) {
         await sleep(700);
         $("." + pattern[i]).fadeOut(100).fadeIn(100)
         playSound(pattern[i]);
     }
+    enableButtons();
 }
 
 function playSound(type) {
@@ -132,9 +134,18 @@ function userWin() {
 }
 
 async function userLose() {
+    disableButtons();
     title.text("You Lost! 🙀 Better luck next time...")
     playSound("lose");
     await sleep(2500);
     index = 0;
     title.text("Press S To Play Again");
+}
+
+function disableButtons() {
+    buttons.attr("disabled", "disabled");
+}
+
+function enableButtons() {
+    buttons.removeAttr("disabled");
 }
